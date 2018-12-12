@@ -8,11 +8,11 @@ const urlThor = 'https://playragnarokonlinebr.com/database/thor/monstros?page=1&
 const links = [];
 
 // Exemplo de busca do monstro Poring no servidor Thor
-buscaLinksDetalhes("poring", 0)
+buscaLinks("poring", 0)
   .then(
     function() {
       links.forEach(function(element) {
-        buscaDetalhesDoMonstro(element.url)
+        buscaDetalhesMstr(element.url)
           .then(async function(monstro) {
               console.log(monstro.nome); //Aqui vai editar a mensagem do discord para cada monstro.
             }, err => console.log("Error:" + err)
@@ -22,7 +22,7 @@ buscaLinksDetalhes("poring", 0)
   ).catch(e => console.log("Error:" + e));
 // (Vamos utilizar no Discord)
 
-async function buscaLinksDetalhes(nome , servidor) { // Servidor: 0 = Thor, 1 = Valhalla
+async function buscaLinks(nome , servidor) { // Servidor: 0 = Thor, 1 = Valhalla
   let url = urlThor;
   let urlDetalhes =  urlDetalhesThor;
   if (servidor == 1) {
@@ -40,7 +40,7 @@ async function buscaLinksDetalhes(nome , servidor) { // Servidor: 0 = Thor, 1 = 
   });
 }
 
-async function buscaDetalhesDoMonstro(url) {
+async function buscaDetalhesMstr(url) {
   var nomeMonstro, imgMonstro;
   await rp(url, function(err, res, body) {
     console.log(url);
@@ -53,9 +53,9 @@ async function buscaDetalhesDoMonstro(url) {
       link: url,
       img: imgMonstro,
       informacoes: buscaInformacoesDoMonstro(body),
-      fraquezasEResistencias: buscaResistenciasEFraquezasDoMonstro(body),
-      atributosCaracteristicas: buscaAtributosCaracteristicasDoMonstro(body),
-      atributosBuild: buscaAtributosBuildDoMonstro(body),
+      fraquezasEResistencias: buscaResEFraqMstr(body),
+      atributosCaracteristicas: buscaAtrCaracMstr(body),
+      atributosBuild: buscaAtribsBuildMstr(body),
       drops: buscaDropsDoMonstro(body)
     });
   });
@@ -103,7 +103,7 @@ function buscaInformacoesDoMonstro(body) {
   return informacoesMonstro;
 }
 
-function buscaResistenciasEFraquezasDoMonstro(body) {
+function buscaResEFraqMstr(body) {
   var RFNeutro, RFTerra, RFVento, RFSagrado, RFFantasma, RFAgua, RFFogo, RFVeneno, RFSombrio, RFMaldito;
   var $ = cheerio.load(body);
   let array = $('#property li').map(function() {
@@ -160,7 +160,7 @@ function buscaResistenciasEFraquezasDoMonstro(body) {
   return FraquezasEResistenciasMonstro;
 }
 
-function buscaAtributosCaracteristicasDoMonstro(body) {
+function buscaAtrCaracMstr(body) {
   var atributoHP, atributoAtaque, atributoAlcance, atributoPrecisao, atributoEsquiva;
   var $ = cheerio.load(body);
   let array = $('#two-flexbox .information .list li').map(function() {
@@ -197,7 +197,7 @@ function buscaAtributosCaracteristicasDoMonstro(body) {
   return AtributosCaracteristicasDoMonstro;
 }
 
-function buscaAtributosBuildDoMonstro(body) {
+function buscaAtribsBuildMstr(body) {
   var atributoDEF, atributoVIT, atributoDEFM, atributoINT, atributoFOR, atributoDES, atributoAGI, atributoSOR;
   var $ = cheerio.load(body);
   let array = $('#two-flexbox #flex-outside .flex-4 li').map(function() {
@@ -258,3 +258,5 @@ function buscaDropsDoMonstro(body) {
   }).toArray();
   return drops;
 }
+
+export { buscaAtribsBuildMstr, buscaAtrCaracMstr, buscaResEFraqMstr, buscaLinks, buscaDetalhesMstr };
