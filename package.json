@@ -1,0 +1,25 @@
+{
+  "name": "tibro",
+  "version": "0.0.1",
+  "description": "robô que irá ajudar jogadores de Ragnarok",
+  "main": "buscaMonstros.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edualb/Tibro.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edualb/Tibro/issues"
+  },
+  "homepage": "https://github.com/edualb/Tibro#readme",
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
+}
