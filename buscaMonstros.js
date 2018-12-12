@@ -259,4 +259,4 @@ function buscaDropsDoMonstro(body) {
   return drops;
 }
 
-export { buscaAtribsBuildMstr, buscaAtrCaracMstr, buscaResEFraqMstr, buscaLinks, buscaDetalhesMstr };
+module.exports = { buscaAtribsBuildMstr, buscaAtrCaracMstr, buscaResEFraqMstr, buscaLinks, buscaDetalhesMstr };
