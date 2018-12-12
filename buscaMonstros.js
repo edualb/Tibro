@@ -8,16 +8,14 @@ const urlThor = 'https://playragnarokonlinebr.com/database/thor/monstros?page=1&
 const links = [];
 
 // Exemplo de busca do monstro Poring no servidor Thor
-buscaLinks("poring", 0)
-  .then(
-    function() {
-      links.forEach(function(element) {
-        buscaDetalhesMstr(element.url)
-          .then(async function(monstro) {
-              console.log(monstro.nome); //Aqui vai editar a mensagem do discord para cada monstro.
-            }, err => console.log("Error:" + err)
-          ).catch(e => console.log("Error:" + e));
-      });
+buscaLinks("poring", 0).then(function() {
+  links.forEach(function(element) {
+    buscaDetalhesMstr(element.url)
+    .then(async function(monstro) {
+        console.log(monstro.nome); //Aqui vai editar a mensagem do discord para cada monstro.
+      }, err => console.log("Error:" + err)
+    ).catch(e => console.log("Error:" + e));
+    });
     }, err => console.log("Error:" + err)
   ).catch(e => console.log("Error:" + e));
 // (Vamos utilizar no Discord)
@@ -34,21 +32,20 @@ async function buscaLinks(nome , servidor) { // Servidor: 0 = Thor, 1 = Valhalla
     let $ = cheerio.load(body);
     $('.monstros a').each(function() {
       let urlComplementoDetalhes = $(this).attr('href')
-      let link = Object.create({url: urlDetalhes + urlComplementoDetalhes});
-      links.push(link);
+      links.push({url: urlDetalhes + urlComplementoDetalhes});
     })
   });
 }
 
 async function buscaDetalhesMstr(url) {
-  var nomeMonstro, imgMonstro;
+  monstro = {};
   await rp(url, function(err, res, body) {
-    console.log(url);
+    // console.log(url);
     if (err) console.log("Error:" + err);
     var $ = cheerio.load(body);
     nomeMonstro = $('#itemDescription').find('h1').text();
     imgMonstro = $('.col-xs-10 #hidden img').attr('src');
-    monstro = Object.create({
+    monstro = {
       nome: nomeMonstro,
       link: url,
       img: imgMonstro,
@@ -57,9 +54,9 @@ async function buscaDetalhesMstr(url) {
       atributosCaracteristicas: buscaAtrCaracMstr(body),
       atributosBuild: buscaAtribsBuildMstr(body),
       drops: buscaDropsDoMonstro(body)
-    });
+    };
   });
-  return monstro
+  return monstro;
 }
 
 function buscaInformacoesDoMonstro(body) {
@@ -91,14 +88,14 @@ function buscaInformacoesDoMonstro(body) {
       default:
         break;
     }
-    informacoesMonstro = Object.create({
+    informacoesMonstro = {
       nivel: informacaoNivel,
       raca: informacaoRaca,
       propriedade: informacaoPropriedade,
       tamanho: informacaoTamanho,
       expBase: informacaoExpBase,
       expClasse: informacaoExpClasse
-    })
+    };
   });
   return informacoesMonstro;
 }
@@ -144,7 +141,7 @@ function buscaResEFraqMstr(body) {
       default:
         break;
     }
-    FraquezasEResistenciasMonstro = Object.create({
+    FraquezasEResistenciasMonstro = {
       neutro: RFNeutro,
       terra: RFTerra,
       vento: RFVento,
@@ -155,7 +152,7 @@ function buscaResEFraqMstr(body) {
       veneno: RFVeneno,
       sombrio: RFSombrio,
       maldito: RFMaldito,
-    })
+    };
   });
   return FraquezasEResistenciasMonstro;
 }
@@ -186,13 +183,13 @@ function buscaAtrCaracMstr(body) {
       default:
         break;
     }
-    AtributosCaracteristicasDoMonstro = Object.create({
+    AtributosCaracteristicasDoMonstro = {
       hp: atributoHP,
       ataque: atributoAtaque,
       alcance: atributoAlcance,
       precisão: atributoPrecisao,
       esquiva: atributoEsquiva
-    })
+    };
   });
   return AtributosCaracteristicasDoMonstro;
 }
@@ -232,7 +229,7 @@ function buscaAtribsBuildMstr(body) {
       default:
         break;
     }
-    AtributosBuildDoMonstro = Object.create({
+    AtributosBuildDoMonstro = {
       def: atributoDEF,
       vit: atributoVIT,
       defm: atributoDEFM,
@@ -241,7 +238,7 @@ function buscaAtribsBuildMstr(body) {
       des: atributoDES,
       agi: atributoAGI,
       sor: atributoSOR,
-    })
+    };
   });
   return AtributosBuildDoMonstro;
 }
