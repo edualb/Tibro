@@ -5,24 +5,24 @@ const urlThor = 'https://playragnarokonlinebr.com/database/thor/monstros?page=1&
   urlDetalhesThor = 'https://playragnarokonlinebr.com/database/thor/',
   urlValhalla = 'https://playragnarokonlinebr.com/database/valhalla/monstros?page=1&nome=',
   urlDetalhesValhalla = 'https://playragnarokonlinebr.com/database/valhalla/';
-const links = [];
 
 // Exemplo de busca do monstro Poring no servidor Thor
-buscaLinks("poring", 0).then(function() {
-  links.forEach(function(element) {
-    buscaDetalhesMstr(element.url)
-    .then(async function(monstro) {
-        //console.log(monstro.nome); //Aqui vai editar a mensagem do discord para cada monstro.
+buscaLinks("poring", 0).then(async function(links) {
+  for (const link of links) {
+    await buscaDetalhesMstr(link.url)
+    .then(function(monstro) {
+        console.log(monstro.nome); //Aqui vai editar a mensagem do discord para cada monstro.
       }, err => console.log("Error:" + err)
     ).catch(e => console.log("Error:" + e));
-    });
-    }, err => console.log("Error:" + err)
-  ).catch(e => console.log("Error:" + e));
+  }
+}, err => console.log("Error:" + err)
+).catch(e => console.log("Error:" + e));
 // (Vamos utilizar no Discord)
 
 async function buscaLinks(nome , servidor) { // Servidor: 0 = Thor, 1 = Valhalla
   let url = urlThor;
   let urlDetalhes =  urlDetalhesThor;
+  let links = [];
   if (servidor == 1) {
     url = urlValhalla;
     urlDetalhes = urlDetalhesValhalla;
@@ -35,6 +35,7 @@ async function buscaLinks(nome , servidor) { // Servidor: 0 = Thor, 1 = Valhalla
       links.push({url: urlDetalhes + urlComplementoDetalhes});
     })
   });
+  return links;
 }
 
 async function buscaDetalhesMstr(url) {
