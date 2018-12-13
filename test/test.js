@@ -3,7 +3,6 @@ const assert = require('assert');
 const monstro = require('./monstro.json');
 
 // not the best solution, it should resolve the promise first,
-// mount an object and then test each field
 describe('tests', async () => {
     const url = "https://playragnarokonlinebr.com/database/thor/monstros/detalhes/poporing";
     describe('test monster details', () => {
@@ -53,6 +52,13 @@ describe('tests', async () => {
             return ops.buscaDetalhesMstr(url)
                 .then((data) => {
                     assert.deepEqual(data.atributosCaracteristicas, monstro.atributosCaracteristicas);
+                }
+            )
+        });
+        it('monster should have drops', () => {
+            return ops.buscaDetalhesMstr(url)
+                .then((data) => {
+                    assert.deepEqual(data.drops, monstro.drops);
                 }
             )
         });
