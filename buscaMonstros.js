@@ -12,7 +12,7 @@ buscaLinks("poring", 0).then(function() {
   links.forEach(function(element) {
     buscaDetalhesMstr(element.url)
     .then(async function(monstro) {
-        console.log(monstro.nome); //Aqui vai editar a mensagem do discord para cada monstro.
+        //console.log(monstro.nome); //Aqui vai editar a mensagem do discord para cada monstro.
       }, err => console.log("Error:" + err)
     ).catch(e => console.log("Error:" + e));
     });
@@ -40,7 +40,6 @@ async function buscaLinks(nome , servidor) { // Servidor: 0 = Thor, 1 = Valhalla
 async function buscaDetalhesMstr(url) {
   monstro = {};
   await rp(url, function(err, res, body) {
-    // console.log(url);
     if (err) console.log("Error:" + err);
     var $ = cheerio.load(body);
     nomeMonstro = $('#itemDescription').find('h1').text();
