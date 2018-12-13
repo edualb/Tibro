@@ -1,6 +1,7 @@
 {
     "nome": "Poporing",
     "link": "https://playragnarokonlinebr.com/database/thor/monstros/detalhes/poporing",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAkCAYAAAAOwvOmAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJaSURBVFhHxZU9chQxEIX3HlyAkAwoMleROyTlAKRkDjiDQ2cURcIlCJ1xAG5A7ohg0Cf0xk89ml1pvDt+Va9mRj/dn1q99uG59f3nlwmXz1pTUnndTcBMD7+yf9x9rvMDJJWhXQTIKhTaG0gC5ubu07Pk3lecFKth5eZ1XEqCcJA/D9+adkgfK6GeJofwpGpS7ONxbvp7X/lJYIKZgyNLFkFa9vVZCYqYJcWYZiCXJWgBrHkGQmX//e/bMTBgKPFCgzDuCgyNgDWBVmAIespxT4YzQNaU1G31Vigm7rXHcDDyFoSlqh4qJ/JArURbHMFWoaoqXQjGPYMVNf/VZKBQnVawc1k5BLaAokp5cicgeYZKeSlKdY0M9MJwolMmXmtvtHJmsCT2ZaC5lxKtFn+9vs5mHHuyrXYYd4TK1fKrYxHfvCfe6ebt1SL4VutgEQorP2ZNdXW8v3j3KgOdGwoLLMKtQjGZNyaQPaAcTEVZQCEHGwFSD3ofrrkFxngTiqcWjFg9+PHlm+xTYN1QW2BkehAYXXkvFIdpQc2/PiZaYK8/vF+MRbP/HFAA8aygIGWRNvcAyfQfFevpQ4fy3IJKB/svFglKYCTxZ/QItNuBKqgkvgvS41/1WC2ASB4B+HZYAmPE09dGO5TvY7zgPEpgTDoYFphgWtVTAjnOY8HIqhDiu6DUYoLNLI4Bz+FhIEkbsAK0EoxYcRTbxVhJfVwKcCy4u2cN5hcmqbdKyn4pmCdVz2numHNVADFvholSEgFhB3RoXb1XBdH8Wl/CXkaCjXZIjZUtHToc/gGPUTA7GcPMGwAAAABJRU5ErkJggg==",
     "informacoes": {
         "nivel": 30,
         "raca": "Planta",
@@ -8,5 +9,24 @@
         "tamanho": "Médio",
         "expBase": 198.00,
         "expClasse": 224.00
+    },
+    "fraquezasEResistencias": {
+        "neutro": "100%",
+        "terra": "100%",
+        "vento": "100%",
+        "sagrado": "100%",
+        "fantasma": "50%",
+        "agua": "100%",
+        "fogo": "100%",
+        "veneno": "0%",
+        "sombrio": "100%",
+        "maldito": "50%"
+    },
+    "atributosCaracteristicas": {
+        "hp": "524",
+        "ataque": "74 - 94",
+        "alcance": "1",
+        "precisão": "256",
+        "esquiva": "266"
     }
 }

@@ -28,10 +28,31 @@ describe('tests', async () => {
                 }
             )
         });
+        it('monster should have img', () => {
+            return ops.buscaDetalhesMstr(url)
+                .then((data) => {
+                    assert.equal(data.img, monstro.img);
+                }
+            )
+        });
         it('monster should have information', () => {
             return ops.buscaDetalhesMstr(url)
                 .then((data) => {
                     assert.deepEqual(data.informacoes, monstro.informacoes);
+                }
+            )
+        });
+        it('monster should have weakness and resistances', () => {
+            return ops.buscaDetalhesMstr(url)
+                .then((data) => {
+                    assert.deepEqual(data.fraquezasEResistencias, monstro.fraquezasEResistencias);
+                }
+            )
+        });
+        it('monster should have features attributes', () => {
+            return ops.buscaDetalhesMstr(url)
+                .then((data) => {
+                    assert.deepEqual(data.atributosCaracteristicas, monstro.atributosCaracteristicas);
                 }
             )
         });
