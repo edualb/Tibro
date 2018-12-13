@@ -5,7 +5,7 @@ const monstro = require('./monstro.json');
 // not the best solution, it should resolve the promise first,
 describe('test monster details', async () => {
     const url = "https://playragnarokonlinebr.com/database/thor/monstros/detalhes/poporing";
-    let monstroDetalhes
+    let monstroDetalhes;
     describe('test data monster details is not empty', () => {
         it('monster should not be empty', () => {
             return ops.buscaDetalhesMstr(url)
@@ -16,25 +16,25 @@ describe('test monster details', async () => {
             )
         })
         it('monster should have name', () => {
-            return assert(monstroDetalhes.nome != null, 'monster have a name');
+            return assert(monstroDetalhes.nome != null, 'monster need a name');
         });
         it('monster should have link', () => {
-            return assert(monstroDetalhes.link != null, 'monster have a link');
+            return assert(monstroDetalhes.link != null, 'monster need a link');
         });
         it('monster should have img', () => {
-            return assert(monstroDetalhes.img != null, 'monster have a image');
+            return assert(monstroDetalhes.img != null, 'monster need a image');
         });
         it('monster should have information', () => {
-            return assert(monstroDetalhes.informacoes !== null, 'monster have an information');
+            return assert(monstroDetalhes.informacoes !== null, 'monster need an information');
         });
         it('monster should have weakness and resistances', () => {
-            return assert(monstroDetalhes.fraquezasEResistencias !== null, 'monster have a weakness and resistances');
+            return assert(monstroDetalhes.fraquezasEResistencias !== null, 'monster need a weakness and resistances');
         });
         it('monster should have features attributes', () => {
-            return assert(monstroDetalhes.atributosCaracteristicas !== null, 'monster have a features attributes');
+            return assert(monstroDetalhes.atributosCaracteristicas !== null, 'monster need a features attributes');
         });
         it('monster should have drops', () => {
-            return assert(monstroDetalhes.drops !== null, 'monster have a drops');
+            return assert(monstroDetalhes.drops !== null, 'monster needs drops');
         });
     })
     describe('test data monster details with all objects attributes', () => {
