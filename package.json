@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/edualb/Tibro/issues"
   },
-  "homepage": "https://github.com/edualb/Tibro#readme",
+  "homepage": "https://edualb.github.io/Tibro/",
   "devDependencies": {
     "cheerio": "^1.0.0-rc.2",
     "mocha": "^5.2.0",
