@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "node"
+  - "8"
+cache:
+  directories:
+  - node_modules
+script:
+  - npm test
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $Tibro_Tests
+  keep-history: true
+  allow-empty-commit: false
+  on:
+    branch: master
