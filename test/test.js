@@ -36,7 +36,7 @@ describe('test monster details', async () => {
         it('monster should have drops', () => {
             return assert(monstroDetalhes.drops !== null, 'monster needs drops');
         });
-    })
+    });
     describe('test data monster details with all objects attributes', () => {
         it('comparison of monster name should be correct', () => {
             return assert.equal(monstroDetalhes.nome, monstro.nome);
@@ -59,9 +59,11 @@ describe('test monster details', async () => {
         it('comparison of monster drops should be correct', () => {
             return assert.deepEqual(monstroDetalhes.drops, monstro.drops);
         });
-    })
+    });
 });
 describe('test links', async () => {
+    const linkThor = [{url: "https://playragnarokonlinebr.com/database/thor/monstros/detalhes/mistress"}];
+    const linkValhalla = [{url: "https://playragnarokonlinebr.com/database/valhalla/monstros/detalhes/mistress"}];
     let linksThor, linksValhalla;
     describe('test data links is not empty', () => {
         it('links Thor should not be empty', () => {
@@ -83,8 +85,16 @@ describe('test links', async () => {
         it('links Thor should have url', () => {
             return assert(linksThor.url !== null, 'Thor need a url');
         });
-        it('links Valhalla should have url', () => {
+        it('links Valhalla should have url ', () => {
             return assert(linksValhalla.url !== null, 'Valhalla need a url');
         });
-    })
+    });
+    describe('test of data links url attribute of Thor and Valhalla server should be correct', () => {
+        it('comparison of link url Thor server should be correct', () => {
+            return assert.deepEqual(linksThor.url, linkThor.url);
+        });
+        it('comparison of link url Valhalla server should be correct', () => {
+            return assert.deepEqual(linksValhalla.url, linkValhalla.url);
+        });
+    });
 });
