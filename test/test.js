@@ -61,3 +61,30 @@ describe('test monster details', async () => {
         });
     })
 });
+describe('test links', async () => {
+    let linksThor, linksValhalla;
+    describe('test data links is not empty', () => {
+        it('links Thor should not be empty', () => {
+            return ops.buscaLinks("abelha", 0)
+                .then((data) => {
+                    linksThor = data;
+                    assert(data != null, "links Thor is empty");
+                }
+            )
+        })
+        it('links Valhalla should not be empty', () => {
+            return ops.buscaLinks("abelha", 1)
+                .then((data) => {
+                    linksValhalla = data;
+                    assert(data != null, "links Valhalla is empty");
+                }
+            )
+        })
+        it('links Thor should have url', () => {
+            return assert(linksThor.url !== null, 'Thor need a url');
+        });
+        it('links Valhalla should have url', () => {
+            return assert(linksValhalla.url !== null, 'Valhalla need a url');
+        });
+    })
+});
