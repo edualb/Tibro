@@ -160,44 +160,26 @@ function buscaResEFraqMstr(body) {
 function buscaAtrCaracMstr(body) {
   var atributoHP, atributoAtaque, atributoAlcance, atributoPrecisao, atributoEsquiva;
   var $ = cheerio.load(body);
-  let array = $('#two-flexbox .information .list li').map(function() {
-    return $(this).text().trim();
-  }).toArray();
-  array.forEach(function(element, index) {
-    switch(index) {
-      case 1:
-        atributoHP = element;
-        break;
-      case 3:
-        atributoAtaque = element;
-        break;
-      case 5:
-        atributoAlcance = element;
-        break;
-      case 7:
-        atributoPrecisao = element;
-        break;
-      case 9:
-        atributoEsquiva = element;
-        break;
-      default:
-        break;
-    }
-    AtributosCaracteristicasDoMonstro = {
-      hp: atributoHP,
-      ataque: atributoAtaque,
-      alcance: atributoAlcance,
-      precisão: atributoPrecisao,
-      esquiva: atributoEsquiva
-    };
+  $('#two-flexbox .information .list').map(function() {
+    atributoHP = $(this).find('li').eq(1).text().trim();
+    atributoAtaque = $(this).find('li').eq(3).text().trim();
+    atributoAlcance = $(this).find('li').eq(5).text().trim();
+    atributoPrecisao = $(this).find('li').eq(7).text().trim();
+    atributoEsquiva = $(this).find('li').eq(9).text().trim();
   });
-  return AtributosCaracteristicasDoMonstro;
+  return {
+    hp: atributoHP,
+    ataque: atributoAtaque,
+    alcance: atributoAlcance,
+    precisão: atributoPrecisao,
+    esquiva: atributoEsquiva
+  };
 }
 
 function buscaAtribsBuildMstr(body) {
   var atributoDEF, atributoVIT, atributoDEFM, atributoINT, atributoFOR, atributoDES, atributoAGI, atributoSOR;
   var $ = cheerio.load(body);
-  let AtributosBuildDoMonstro = $('#two-flexbox #flex-outside ul').map(function() {
+  $('#two-flexbox #flex-outside ul').map(function() {
     atributoDEF = $(this).find('li').eq(1).text().trim();
     atributoVIT = $(this).find('li').eq(3).text().trim();
     atributoDEFM = $(this).find('li').eq(5).text().trim();
@@ -206,18 +188,17 @@ function buscaAtribsBuildMstr(body) {
     atributoDES = $(this).find('li').eq(11).text().trim();
     atributoAGI = $(this).find('li').eq(13).text().trim();
     atributoSOR = $(this).find('li').eq(15).text().trim();
-    return {
-      def: atributoDEF,
-      vit: atributoVIT,
-      defm: atributoDEFM,
-      int: atributoINT,
-      for: atributoFOR,
-      des: atributoDES,
-      agi: atributoAGI,
-      sor: atributoSOR,
-    };
   });
-  return AtributosBuildDoMonstro;
+  return {
+    def: atributoDEF,
+    vit: atributoVIT,
+    defm: atributoDEFM,
+    int: atributoINT,
+    for: atributoFOR,
+    des: atributoDES,
+    agi: atributoAGI,
+    sor: atributoSOR,
+  };
 }
 
 function buscaDropsDoMonstro(body) {
