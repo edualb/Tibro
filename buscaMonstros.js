@@ -103,58 +103,30 @@ function buscaInformacoesDoMonstro(body) {
 function buscaResEFraqMstr(body) {
   var RFNeutro, RFTerra, RFVento, RFSagrado, RFFantasma, RFAgua, RFFogo, RFVeneno, RFSombrio, RFMaldito;
   var $ = cheerio.load(body);
-  let array = $('#property li').map(function() {
-    return $(this).text().trim();
-  }).toArray();
-  array.forEach(function(element, index) {
-    switch(index) {
-      case 1:
-        RFNeutro = element;
-        break;
-      case 3:
-        RFAgua = element;
-        break;
-      case 5:
-        RFTerra = element;
-        break;
-      case 7:
-        RFFogo = element;
-        break;
-      case 9:
-        RFVento = element;
-        break;
-      case 11:
-        RFVeneno = element;
-        break;
-      case 13:
-        RFSagrado = element;
-        break;
-      case 15:
-        RFSombrio = element;
-        break;
-      case 17:
-        RFFantasma = element;
-        break;
-      case 19:
-        RFMaldito = element;
-        break;
-      default:
-        break;
-    }
-    FraquezasEResistenciasMonstro = {
-      neutro: RFNeutro,
-      terra: RFTerra,
-      vento: RFVento,
-      sagrado: RFSagrado,
-      fantasma: RFFantasma,
-      agua: RFAgua,
-      fogo: RFFogo,
-      veneno: RFVeneno,
-      sombrio: RFSombrio,
-      maldito: RFMaldito,
-    };
+  $('#property').map(function() {
+    RFNeutro = $(this).find('li').eq(1).text().trim();
+    RFAgua = $(this).find('li').eq(3).text().trim();
+    RFTerra = $(this).find('li').eq(5).text().trim();
+    RFFogo = $(this).find('li').eq(7).text().trim();
+    RFVento = $(this).find('li').eq(9).text().trim();
+    RFVeneno = $(this).find('li').eq(11).text().trim();
+    RFSagrado = $(this).find('li').eq(13).text().trim();
+    RFSombrio = $(this).find('li').eq(15).text().trim();
+    RFFantasma = $(this).find('li').eq(17).text().trim();
+    RFMaldito = $(this).find('li').eq(19).text().trim();
   });
-  return FraquezasEResistenciasMonstro;
+  return {
+    neutro: RFNeutro,
+    terra: RFTerra,
+    vento: RFVento,
+    sagrado: RFSagrado,
+    fantasma: RFFantasma,
+    agua: RFAgua,
+    fogo: RFFogo,
+    veneno: RFVeneno,
+    sombrio: RFSombrio,
+    maldito: RFMaldito,
+  };
 }
 
 function buscaAtrCaracMstr(body) {
