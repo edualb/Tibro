@@ -62,42 +62,22 @@ async function buscaDetalhesMstr(url) {
 function buscaInformacoesDoMonstro(body) {
   var informacaoNivel, informacaoRaca, informacaoPropriedade, informacaoTamanho, informacaoExpBase, informacaoExpClasse;
   var $ = cheerio.load(body);
-  let array = $('#informacoes-list li').map(function() {
-    return $(this).text().trim();
-  }).toArray();
-  array.forEach(function(element, index) {
-    switch(index) {
-      case 1:
-        informacaoNivel = parseInt(element);
-        break;
-      case 3:
-        informacaoRaca = element;
-        break;
-      case 5:
-        informacaoPropriedade = element;
-        break;
-      case 7:
-        informacaoTamanho = element;
-        break;
-      case 9:
-        informacaoExpBase = parseFloat(element);
-        break;
-      case 11:
-        informacaoExpClasse = parseFloat(element);
-        break;
-      default:
-        break;
-    }
-    informacoesMonstro = {
-      nivel: informacaoNivel,
-      raca: informacaoRaca,
-      propriedade: informacaoPropriedade,
-      tamanho: informacaoTamanho,
-      expBase: informacaoExpBase,
-      expClasse: informacaoExpClasse
-    };
+  $('#informacoes-list').map(function() {
+    informacaoNivel = $(this).find('li').eq(1).text().trim();
+    informacaoRaca = $(this).find('li').eq(3).text().trim();
+    informacaoPropriedade = $(this).find('li').eq(5).text().trim();
+    informacaoTamanho = $(this).find('li').eq(7).text().trim();
+    informacaoExpBase = $(this).find('li').eq(9).text().trim();
+    informacaoExpClasse = $(this).find('li').eq(11).text().trim();
   });
-  return informacoesMonstro;
+  return {
+    nivel: informacaoNivel,
+    raca: informacaoRaca,
+    propriedade: informacaoPropriedade,
+    tamanho: informacaoTamanho,
+    expBase: informacaoExpBase,
+    expClasse: informacaoExpClasse
+  };
 }
 
 function buscaResEFraqMstr(body) {
