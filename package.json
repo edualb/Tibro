@@ -1,6 +1,6 @@
 {
   "name": "tibro",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "robô que irá ajudar jogadores de Ragnarok",
   "main": "buscaMonstros.js",
   "directories": {
@@ -24,5 +24,8 @@
     "mocha": "^5.2.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
+  },
+  "dependencies": {
+    "discord.js": "^11.4.2"
   }
 }
