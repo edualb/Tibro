@@ -197,39 +197,16 @@ function buscaAtrCaracMstr(body) {
 function buscaAtribsBuildMstr(body) {
   var atributoDEF, atributoVIT, atributoDEFM, atributoINT, atributoFOR, atributoDES, atributoAGI, atributoSOR;
   var $ = cheerio.load(body);
-  let array = $('#two-flexbox #flex-outside .flex-4 li').map(function() {
-    return $(this).text().trim();
-  }).toArray();
-  array.forEach(function(element, index) {
-    switch(index) {
-      case 1:
-        atributoDEF = element;
-        break;
-      case 3:
-        atributoVIT = element;
-        break;
-      case 5:
-        atributoDEFM = element;
-        break;
-      case 7:
-        atributoINT = element;
-        break;
-      case 9:
-        atributoFOR = element;
-        break;
-      case 11:
-        atributoDES = element;
-        break;
-      case 13:
-        atributoAGI = element;
-        break;
-      case 15:
-        atributoSOR = element;
-        break;
-      default:
-        break;
-    }
-    AtributosBuildDoMonstro = {
+  let AtributosBuildDoMonstro = $('#two-flexbox #flex-outside ul').map(function() {
+    atributoDEF = $(this).find('li').eq(1).text().trim();
+    atributoVIT = $(this).find('li').eq(3).text().trim();
+    atributoDEFM = $(this).find('li').eq(5).text().trim();
+    atributoINT = $(this).find('li').eq(7).text().trim();
+    atributoFOR = $(this).find('li').eq(9).text().trim();
+    atributoDES = $(this).find('li').eq(11).text().trim();
+    atributoAGI = $(this).find('li').eq(13).text().trim();
+    atributoSOR = $(this).find('li').eq(15).text().trim();
+    return {
       def: atributoDEF,
       vit: atributoVIT,
       defm: atributoDEFM,
