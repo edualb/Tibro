@@ -2,7 +2,7 @@
   "name": "tibro",
   "version": "0.1.1",
   "description": "robô que irá ajudar jogadores de Ragnarok",
-  "main": "buscaMonstros.js",
+  "main": "tibro.js",
   "directories": {
     "test": "test"
   },
