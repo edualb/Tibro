@@ -22,14 +22,29 @@ $ cd Tibro
 $ npm install --save
 ```
 
-* Execute exemplo: 
-
-```shell
-$ node buscaMonstros.js
-```
-
 * Rodar os testes:
 
 ```shell
 $ npm test
+```
+
+## Bot Discord
+* Crie um servidor no [Discord](https://discordapp.com/)
+
+* Crie um app na [área do desenvolvedor](https://discordapp.com/developers/applications/) e crie sua aplicação
+
+* Autentique o seu bot no servidor https://discordapp.com/oauth2/authorize?client_id=**YOUR_CLIENT_ID**&scope=bot
+
+* Crie um arquivo tibroconfig.json dentro da pasta bot
+
+```shell
+{
+    "token": YOUR_BOT_TOKEN,
+    "prefix": "!"
+}
+```
+
+* Execute o bot:
+```shell
+$ node bot/tibro.js
 ```
