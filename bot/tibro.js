@@ -34,12 +34,14 @@ function msgEmbededServidor(message, servidor, nomeMonstro) {
           .then(async function(monstro) {
             criaPastaImg();
             await carregaImg(monstro.img, "./img/monstro.png");
-            carregaImgDrops(monstro.drops);
+            await carregaImgDrops(monstro.drops);
             const attachment = new discord.Attachment('./img/monstro.png', 'monstro.png');
+            const attachmentDrop = new discord.Attachment('./img/drops/drop0.png', 'drop0.png');
             const embed = new discord.RichEmbed()
                 .setTitle(monstro.nome)
                 .setColor(colorEmbeded)
-                .attachFiles([attachment])
+                .attachFiles([attachment, attachmentDrop])
+                .setImage('attachment://drop0.png')
                 .setThumbnail('attachment://monstro.png')
             embed.fields = [
                 {
@@ -47,17 +49,12 @@ function msgEmbededServidor(message, servidor, nomeMonstro) {
                     value: `**HP:** ${monstro.atributosCaracteristicas.hp}\n**Ataque:** ${monstro.atributosCaracteristicas.ataque}\n` + 
                             `**Alcance:** ${monstro.atributosCaracteristicas.alcance}\n**Precisão:** ${monstro.atributosCaracteristicas.precisao}\n` + 
                             `**Esquiva:** ${monstro.atributosCaracteristicas.esquiva}`,
-                    inline: true
+                    inline: true,
                 },
                 {
                     name: "*Informações*", 
                     value: `**Nível:** ${monstro.informacoes.nivel}\n**Raça:** ${monstro.informacoes.raca}\n**Propriedade:** ${monstro.informacoes.propriedade}\n` +
                             `**Tamanho:** ${monstro.informacoes.tamanho}\n**Exp Base:** ${monstro.informacoes.expBase}\n**Exp Classe:** ${monstro.informacoes.expClasse}`,
-                    inline: true
-                },
-                {
-                    name: "*Drops*", 
-                    value: `*${monstro.nome}:*\n${monstro.drops.map((drop) => `**${drop.nome}**\n\xa0\xa0\xa0\xa0\ ${drop.dropChance}\xa0\xa0\xa0\xa0\ ${drop.preco}`.trim()).join('\n')}`,
                     inline: true
                 },
                 {
@@ -78,15 +75,28 @@ function msgEmbededServidor(message, servidor, nomeMonstro) {
     ).catch(e => console.log("Error:" + e));
 }
 
-async function carregaImg(url, path) {
-    var canvas = createCanvas(200, 200, "png");
-    var ctx = canvas.getContext("2d");
-    await loadImage(url).then((image) => {
-        ctx.drawImage(image, 0, 0, 150, 150)
-    });
-    var buf = canvas.toBuffer();
-    fs.writeFileSync(path, buf);
-    if (path.slice(0, 16) === './img/drops/drop') removeWhiteBackground(path);
+//TODO passar para um JS que realize essas funções.
+
+async function carregaImg(url, path, drop) {
+    drop = drop || null;
+    if (path.slice(0, 16) === './img/drops/drop') {
+        var canvas = createCanvas(1920, 300, "png");
+        var ctx = canvas.getContext("2d");
+        await loadImage(url).then((image) => {
+            ctx.drawImage(image, 0, 100, 150, 150)
+        });
+        var buf = canvas.toBuffer();
+        fs.writeFileSync(path, buf);
+        montaImgDrops(path, drop);
+    } else {
+        var canvas = createCanvas(200, 200, "png");
+        var ctx = canvas.getContext("2d");
+        await loadImage(url).then((image) => {
+            ctx.drawImage(image, 0, 0, 150, 150)
+        });
+        var buf = canvas.toBuffer();
+        fs.writeFileSync(path, buf);
+    }
 }
 
 function criaPastaImg() {
@@ -94,22 +104,18 @@ function criaPastaImg() {
     if (!fs.existsSync('./img/drops')) fs.mkdirSync('./img/drops');
 }
 
-//TODO: Quando chegar os Drops, vamos precisar limpar.
 async function carregaImgDrops(monstroDrops) {
     let i = 0;
     if (monstroDrops) {
-        let drops = await monstroDrops.map((element) => {
-            return element.img;
-        });
-        drops.forEach(img => {
-            carregaImg(img, './img/drops/drop'+i+'.png');
+        monstroDrops.forEach(element => {
+            carregaImg(element.img, './img/drops/drop'+i+'.png', element);
             i++;
         });
         i = 0;
     }
 }
 
-function removeWhiteBackground(path) {
+function montaImgDrops(path, drop) {
     jimp.read(path).then(image => {
         const targetColor = {r: 255, g: 255, b: 255, a: 255};  // Color you want to replace
         const replaceColor = {r: 0, g: 0, b: 0, a: 0};  // Color you want to replace with
@@ -129,7 +135,16 @@ function removeWhiteBackground(path) {
                 image.bitmap.data[idx + 3] = replaceColor.a;
             }
         })
-        .scale(0.25);
+        .scale(0.25)
         image.write(path);
     });
+    preparaTextoDrop(path, `${drop.nome}\n${drop.dropChance}\n${drop.preco}`, 0, 0);
 }
+
+async function preparaTextoDrop(path, message, positionX, positionY) {
+    const font = await jimp.loadFont(jimp.FONT_SANS_16_WHITE);
+    const fontCanvas = await jimp.create(750, 20);
+    const destImage = await jimp.read(path);
+    fontCanvas.print(font, positionX, positionY, message);
+    destImage.blit(fontCanvas, positionX, positionY).writeAsync(path);
+  }
