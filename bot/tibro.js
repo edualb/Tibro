@@ -1,9 +1,10 @@
 const tibroconfig = require("./tibroconfig.json");
 const discord = require("discord.js");
 const ops = require('../buscaMonstros.js');
-const bot = new discord.Client({disableEveryone: true});
 const { createCanvas, loadImage } = require('canvas')
 const fs = require("fs");
+
+const bot = new discord.Client({disableEveryone: true});
 
 bot.on("ready", async () => {
     bot.user.setActivity("Ragnarok Online");
@@ -30,6 +31,7 @@ function msgEmbededServidor(message, servidor, nomeMonstro) {
         for (const link of links) {
           await ops.buscaDetalhesMstr(link.url)
           .then(async function(monstro) {
+            criaPastaImg();
             await carregaImg(monstro.img, "./img/monstro.png");
             const attachment = new discord.Attachment('./img/monstro.png', 'monstro.png');
             const embed = new discord.RichEmbed()
@@ -55,3 +57,11 @@ async function carregaImg(url, nomeImg) {
     var buf = canvas.toBuffer();
     fs.writeFileSync(nomeImg, buf);
 }
+
+function criaPastaImg() {
+    if (!fs.existsSync('./img')) {
+        fs.mkdirSync('./img')
+    }
+}
+
+//TODO: Quando chegar os Drops, vamos precisar limpar.
