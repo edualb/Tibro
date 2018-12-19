@@ -1,9 +1,7 @@
 const tibroconfig = require("./tibroconfig.json");
 const discord = require("discord.js");
-const ops = require('../buscaMonstros.js');
-const { createCanvas, loadImage } = require('canvas')
-const jimp = require('jimp');
-const fs = require("fs");
+const buscaMstr = require('../utilitários/buscaMonstros.js');
+const trataImg = require('../utilitários/trataImg.js');
 
 const bot = new discord.Client({disableEveryone: true});
 
@@ -28,13 +26,12 @@ bot.login(tibroconfig.token);
 function msgEmbededServidor(message, servidor, nomeMonstro) {
     let colorEmbeded = 0xFFA200;
     if (servidor == 1) colorEmbeded = 0x00BECA;
-    ops.buscaLinks(ops.formataMsgBusca(nomeMonstro), servidor).then(async function(links) {
+    buscaMstr.buscaLinks(buscaMstr.formataMsgBusca(nomeMonstro), servidor).then(async function(links) {
         for (const link of links) {
-          await ops.buscaDetalhesMstr(link.url)
+          await buscaMstr.buscaDetalhesMstr(link.url)
           .then(async function(monstro) {
-            criaPastaImg();
-            await carregaImg(monstro.img, "./img/monstro.png");
-            carregaImgDrops(monstro.drops);
+            trataImg.criaPastaImg();
+            await trataImg.carregaImg(monstro.img, "./img/monstro.png");
             const attachment = new discord.Attachment('./img/monstro.png', 'monstro.png');
             const embed = new discord.RichEmbed()
                 .setTitle(monstro.nome)
@@ -76,60 +73,4 @@ function msgEmbededServidor(message, servidor, nomeMonstro) {
         }
       }, err => console.log("Error:" + err)
     ).catch(e => console.log("Error:" + e));
-}
-
-async function carregaImg(url, path) {
-    var canvas = createCanvas(200, 200, "png");
-    var ctx = canvas.getContext("2d");
-    await loadImage(url).then((image) => {
-        ctx.drawImage(image, 0, 0, 150, 150)
-    });
-    var buf = canvas.toBuffer();
-    fs.writeFileSync(path, buf);
-    if (path.slice(0, 16) === './img/drops/drop') removeWhiteBackground(path);
-}
-
-function criaPastaImg() {
-    if (!fs.existsSync('./img')) fs.mkdirSync('./img');
-    if (!fs.existsSync('./img/drops')) fs.mkdirSync('./img/drops');
-}
-
-//TODO: Quando chegar os Drops, vamos precisar limpar.
-async function carregaImgDrops(monstroDrops) {
-    let i = 0;
-    if (monstroDrops) {
-        let drops = await monstroDrops.map((element) => {
-            return element.img;
-        });
-        drops.forEach(img => {
-            carregaImg(img, './img/drops/drop'+i+'.png');
-            i++;
-        });
-        i = 0;
-    }
-}
-
-function removeWhiteBackground(path) {
-    jimp.read(path).then(image => {
-        const targetColor = {r: 255, g: 255, b: 255, a: 255};  // Color you want to replace
-        const replaceColor = {r: 0, g: 0, b: 0, a: 0};  // Color you want to replace with
-        const colorDistance = (c1, c2) => Math.sqrt(Math.pow(c1.r - c2.r, 2) + Math.pow(c1.g - c2.g, 2) + Math.pow(c1.b - c2.b, 2) + Math.pow(c1.a - c2.a, 2));  // Distance between two colors
-        const threshold = 32;  // Replace colors under this threshold. The smaller the number, the more specific it is.
-        image.scan(0, 0, image.bitmap.width, image.bitmap.height, (x, y, idx) => {
-            const thisColor = {
-                r: image.bitmap.data[idx + 0],
-                g: image.bitmap.data[idx + 1],
-                b: image.bitmap.data[idx + 2],
-                a: image.bitmap.data[idx + 3]
-            };
-            if(colorDistance(targetColor, thisColor) <= threshold) {
-                image.bitmap.data[idx + 0] = replaceColor.r;
-                image.bitmap.data[idx + 1] = replaceColor.g;
-                image.bitmap.data[idx + 2] = replaceColor.b;
-                image.bitmap.data[idx + 3] = replaceColor.a;
-            }
-        })
-        .scale(0.25);
-        image.write(path);
-    });
 }

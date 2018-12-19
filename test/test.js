@@ -1,4 +1,4 @@
-const ops = require('../buscaMonstros.js');
+const ops = require('../utilitários/buscaMonstros.js');
 const assert = require('assert');
 const monstro = require('./monstro.json');
 
