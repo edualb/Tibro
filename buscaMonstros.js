@@ -110,7 +110,7 @@ function buscaAtrCaracMstr(body) {
     hp: atributoHP,
     ataque: atributoAtaque,
     alcance: atributoAlcance,
-    precisão: atributoPrecisao,
+    precisao: atributoPrecisao,
     esquiva: atributoEsquiva
   };
 }

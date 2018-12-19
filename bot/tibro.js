@@ -39,7 +39,18 @@ function msgEmbededServidor(message, servidor, nomeMonstro) {
                 .setColor(colorEmbeded)
                 .attachFile(attachment)
                 .setThumbnail('attachment://monstro.png')
-                .setDescription('montar mensagem');
+            embed.fields = [
+                {
+                    name: "*Características*", 
+                    value: `**HP:** ${monstro.atributosCaracteristicas.hp}\n**Ataque:** ${monstro.atributosCaracteristicas.ataque}\n**Alcance:** ${monstro.atributosCaracteristicas.alcance}\n**Precisão:** ${monstro.atributosCaracteristicas.precisao}\n**Esquiva:** ${monstro.atributosCaracteristicas.esquiva}`,
+                    inline: true
+                },
+                {
+                    name: "*Informações*", 
+                    value: `**Nível:** ${monstro.informacoes.nivel}\n**Raça:** ${monstro.informacoes.raca}\n**Propriedade:** ${monstro.informacoes.propriedade}\n**Tamanho:** ${monstro.informacoes.tamanho}\n**Exp Base:** ${monstro.informacoes.expBase}\n**Exp Classe:** ${monstro.informacoes.expClasse}`,
+                    inline: true
+                },
+            ]
             return message.channel.send(embed);
             }, err => console.log("Error:" + err)
           ).catch(e => console.log("Error:" + e));
