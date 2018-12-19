@@ -2,6 +2,8 @@ const tibroconfig = require("./tibroconfig.json");
 const discord = require("discord.js");
 const ops = require('../buscaMonstros.js');
 const bot = new discord.Client({disableEveryone: true});
+const { createCanvas, loadImage } = require('canvas')
+const fs = require("fs");
 
 bot.on("ready", async () => {
     bot.user.setActivity("Ragnarok Online");
@@ -27,15 +29,29 @@ function msgEmbededServidor(message, servidor, nomeMonstro) {
     ops.buscaLinks(ops.formataMsgBusca(nomeMonstro), servidor).then(async function(links) {
         for (const link of links) {
           await ops.buscaDetalhesMstr(link.url)
-          .then(function(monstro) {
+          .then(async function(monstro) {
+            await carregaImg(monstro.img, "./img/monstro.png");
+            const attachment = new discord.Attachment('./img/monstro.png', 'monstro.png');
             const embed = new discord.RichEmbed()
                 .setTitle(monstro.nome)
                 .setColor(colorEmbeded)
-                .setDescription('montar mensagem')
+                .attachFile(attachment)
+                .setThumbnail('attachment://monstro.png')
+                .setDescription('montar mensagem');
             return message.channel.send(embed);
             }, err => console.log("Error:" + err)
           ).catch(e => console.log("Error:" + e));
         }
       }, err => console.log("Error:" + err)
     ).catch(e => console.log("Error:" + e));
+}
+
+async function carregaImg(url, nomeImg) {
+    var canvas = createCanvas(200, 200, "png");
+    var ctx = canvas.getContext("2d");
+    await loadImage(url).then((image) => {
+        ctx.drawImage(image, 50, 0, 150, 150)
+    });
+    var buf = canvas.toBuffer();
+    fs.writeFileSync(nomeImg, buf);
 }
