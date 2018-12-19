@@ -42,14 +42,25 @@ function msgEmbededServidor(message, servidor, nomeMonstro) {
             embed.fields = [
                 {
                     name: "*Características*", 
-                    value: `**HP:** ${monstro.atributosCaracteristicas.hp}\n**Ataque:** ${monstro.atributosCaracteristicas.ataque}\n**Alcance:** ${monstro.atributosCaracteristicas.alcance}\n**Precisão:** ${monstro.atributosCaracteristicas.precisao}\n**Esquiva:** ${monstro.atributosCaracteristicas.esquiva}`,
+                    value: `**HP:** ${monstro.atributosCaracteristicas.hp}\n**Ataque:** ${monstro.atributosCaracteristicas.ataque}\n` + 
+                            `**Alcance:** ${monstro.atributosCaracteristicas.alcance}\n**Precisão:** ${monstro.atributosCaracteristicas.precisao}\n` + 
+                            `**Esquiva:** ${monstro.atributosCaracteristicas.esquiva}`,
                     inline: true
                 },
                 {
                     name: "*Informações*", 
-                    value: `**Nível:** ${monstro.informacoes.nivel}\n**Raça:** ${monstro.informacoes.raca}\n**Propriedade:** ${monstro.informacoes.propriedade}\n**Tamanho:** ${monstro.informacoes.tamanho}\n**Exp Base:** ${monstro.informacoes.expBase}\n**Exp Classe:** ${monstro.informacoes.expClasse}`,
+                    value: `**Nível:** ${monstro.informacoes.nivel}\n**Raça:** ${monstro.informacoes.raca}\n**Propriedade:** ${monstro.informacoes.propriedade}\n` +
+                            `**Tamanho:** ${monstro.informacoes.tamanho}\n**Exp Base:** ${monstro.informacoes.expBase}\n**Exp Classe:** ${monstro.informacoes.expClasse}`,
                     inline: true
                 },
+                {
+                    name: "*Resistências e Fraquezas*", 
+                    value: `**Neutro:** ${monstro.fraquezasEResistencias.neutro}\xa0\xa0\xa0\xa0\xa0\xa0\xa0**Água:** ${monstro.fraquezasEResistencias.agua}\n` + 
+                            `**Terra:** ${monstro.fraquezasEResistencias.terra}\xa0\xa0\xa0\xa0\xa0\xa0\xa0**Fogo:** ${monstro.fraquezasEResistencias.fogo}\n` + 
+                            `**Vento:** ${monstro.fraquezasEResistencias.vento}\xa0\xa0\xa0\xa0\xa0\xa0\xa0**Veneno:** ${monstro.fraquezasEResistencias.veneno}\n` + 
+                            `**Sagrado:** ${monstro.fraquezasEResistencias.sagrado}\xa0\xa0\xa0\xa0\xa0\xa0\xa0**Sombrio:** ${monstro.fraquezasEResistencias.sombrio}\n` + 
+                            `**Fantasma:** ${monstro.fraquezasEResistencias.fantasma}\xa0\xa0\xa0\xa0\xa0\xa0\xa0**Maldito:** ${monstro.fraquezasEResistencias.maldito}\n`,
+                        },
             ]
             return message.channel.send(embed);
             }, err => console.log("Error:" + err)
