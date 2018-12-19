@@ -56,13 +56,19 @@ function msgEmbededServidor(message, servidor, nomeMonstro) {
                     inline: true
                 },
                 {
+                    name: "*Drops*", 
+                    value: `*${monstro.nome}:*\n${monstro.drops.map((drop) => `**${drop.nome}**\n\xa0\xa0\xa0\xa0\ ${drop.dropChance}\xa0\xa0\xa0\xa0\ ${drop.preco}`.trim()).join('\n')}`,
+                    inline: true
+                },
+                {
                     name: "*Resistências e Fraquezas*", 
                     value: `**Neutro:** ${monstro.fraquezasEResistencias.neutro}\xa0\xa0\xa0\xa0\xa0\xa0\xa0**Água:** ${monstro.fraquezasEResistencias.agua}\n` + 
                             `**Terra:** ${monstro.fraquezasEResistencias.terra}\xa0\xa0\xa0\xa0\xa0\xa0\xa0**Fogo:** ${monstro.fraquezasEResistencias.fogo}\n` + 
                             `**Vento:** ${monstro.fraquezasEResistencias.vento}\xa0\xa0\xa0\xa0\xa0\xa0\xa0**Veneno:** ${monstro.fraquezasEResistencias.veneno}\n` + 
                             `**Sagrado:** ${monstro.fraquezasEResistencias.sagrado}\xa0\xa0\xa0\xa0\xa0\xa0\xa0**Sombrio:** ${monstro.fraquezasEResistencias.sombrio}\n` + 
                             `**Fantasma:** ${monstro.fraquezasEResistencias.fantasma}\xa0\xa0\xa0\xa0\xa0\xa0\xa0**Maldito:** ${monstro.fraquezasEResistencias.maldito}\n`,
-                        },
+                    inline: true
+                },
             ]
             return message.channel.send(embed);
             }, err => console.log("Error:" + err)
