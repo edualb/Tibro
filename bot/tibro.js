@@ -6,6 +6,7 @@ const trataImg = require('../utilitários/trataImg.js');
 const bot = new discord.Client({disableEveryone: true});
 
 bot.on("ready", async () => {
+    console.log('Tibro está online.');
     bot.user.setActivity("Ragnarok Online");
 });
 
@@ -30,9 +31,7 @@ function msgEmbededServidor(message, servidor, nomeMonstro) {
         for (const link of links) {
           await buscaMstr.buscaDetalhesMstr(link.url)
           .then(async function(monstro) {
-            trataImg.criaPastaImg();
-            await trataImg.carregaImg(monstro.img, "./img/monstro.png");
-            const attachment = new discord.Attachment('./img/monstro.png', 'monstro.png');
+            const attachment = new discord.Attachment(await trataImg.bufferImg(monstro.img), 'monstro.png');
             const embed = new discord.RichEmbed()
                 .setTitle(monstro.nome)
                 .setColor(colorEmbeded)
