@@ -1,52 +1,50 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/edualb/Tibro/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/edualb/Tibro.svg?branch=master)](https://travis-ci.org/edualb/Tibro)
-# Tibro
+
+# Tibro EN
+Tibro is a robot that will help players of Ragnarok online who uses discord to find descriptions / characteristics of monsters, items and consumables within the game. Initially the robot will only bring the characteristics of monsters. depending on community support, could become a larger project, bringing the features of items as well.
+
+
+# Tibro PT-BR
 Tibro é um robô que irá ajudar jogadores de Ragnarok online que utiliza discord a encontrar descrições/características de monstros, itens e consumíveis dentro do jogo. Inicialmente o robô só trará as características de monstros. dependendo do apoio da comunidade, poderá se tornar um projeto maior , trazendo as características de itens também.
 
-## Comece Aqui
-* Baixe e instale o [NodeJs](https://nodejs.org/)
+## Start here
+* Download and install [NodeJs](https://nodejs.org/)
 
-* Clone o repositório:
+* Clone the repository:
 
 ```shell
 $ git clone git@github.com:edualb/Tibro.git
 ```
 
-* Entre na pasta do projeto:
+* Enter the project folder:
 
 ```shell
 $ cd Tibro
 ```
 
-* Instale dependencias: 
+* Install dependencies: 
 
 ```shell
 $ npm install --save
 ```
 
-* Rodar os testes:
+* Run the tests:
 
 ```shell
 $ npm test
 ```
 
 ## Bot Discord
-* Crie um servidor no [Discord](https://discordapp.com/)
+* Create a server at [Discord](https://discordapp.com/)
 
-* Crie um app na [área do desenvolvedor](https://discordapp.com/developers/applications/) e crie sua aplicação
+* Create an app on [desenveloper area](https://discordapp.com/developers/applications/) and create your app
 
-* Autentique o seu bot no servidor https://discordapp.com/oauth2/authorize?client_id=**YOUR_CLIENT_ID**&scope=bot
+* Authenticate your bot on the server https://discordapp.com/oauth2/authorize?client_id=**YOUR_CLIENT_ID**&scope=bot
 
-* Crie um arquivo tibroconfig.json dentro da pasta bot
+* Create a environment variable `TOKEN` that will receive Discord's token: 
 
-```shell
-{
-    "token": YOUR_BOT_TOKEN,
-    "prefix": "!"
-}
-```
-
-* Execute o bot:
+* Execute the bot:
 ```shell
 $ node bot/tibro.js
 ```
