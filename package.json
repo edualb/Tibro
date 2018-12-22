@@ -2,7 +2,10 @@
   "name": "tibro",
   "version": "0.1.1",
   "description": "robô que irá ajudar jogadores de Ragnarok",
-  "main": "tibro.js",
+  "engines": {
+    "node": "8.x"
+  },
+  "main": "bot/tibro.js",
   "directories": {
     "test": "test"
   },
