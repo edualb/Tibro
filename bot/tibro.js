@@ -1,4 +1,3 @@
-const tibroconfig = require("./tibroconfig.json");
 const discord = require("discord.js");
 const buscaMstr = require('../utilitários/buscaMonstros.js');
 const trataImg = require('../utilitários/trataImg.js');
@@ -11,18 +10,17 @@ bot.on("ready", async () => {
 });
 
 bot.on("message", async message => {
-    let prefix = tibroconfig.prefix;
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
     let args = messageArray.slice(1);
-    if(cmd === `${prefix}mobt`) {
+    if(cmd === `!mobt`) {
         msgEmbededServidor(message, 0, args);
-    } else if(cmd === `${prefix}mobv`) {
+    } else if(cmd === `!mobv`) {
         msgEmbededServidor(message, 1, args);
     }
 });
 
-bot.login(tibroconfig.token);
+bot.login(process.env.TOKEN);
 
 function msgEmbededServidor(message, servidor, nomeMonstro) {
     let colorEmbeded = 0xFFA200;
