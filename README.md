@@ -4,9 +4,12 @@
 # Tibro EN
 Tibro is a robot that will help players of Ragnarok online who uses discord to find descriptions / characteristics of monsters, items and consumables within the game. Initially the robot will only bring the characteristics of monsters. depending on community support, could become a larger project, bringing the features of items as well.
 
+[Add Tibro bot in your server](https://discordapp.com/api/oauth2/authorize?client_id=524660604284174336&permissions=2048&scope=bot)
 
 # Tibro PT-BR
 Tibro é um robô que irá ajudar jogadores de Ragnarok online que utiliza discord a encontrar descrições/características de monstros, itens e consumíveis dentro do jogo. Inicialmente o robô só trará as características de monstros. dependendo do apoio da comunidade, poderá se tornar um projeto maior , trazendo as características de itens também.
+
+[Adicione o bot Tibro em seu servidor](https://discordapp.com/api/oauth2/authorize?client_id=524660604284174336&permissions=2048&scope=bot)
 
 ## Example
 

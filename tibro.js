@@ -1,6 +1,6 @@
 const discord = require("discord.js");
-const buscaMstr = require('../utilitários/buscaMonstros.js');
-const trataImg = require('../utilitários/trataImg.js');
+const buscaMstr = require('./buscaMonstros.js');
+const trataImg = require('./trataImg.js');
 
 const bot = new discord.Client({disableEveryone: true});
 

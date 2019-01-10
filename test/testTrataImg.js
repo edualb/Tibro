@@ -1,5 +1,5 @@
 const monstro = require('./monstro.json');
-const trataImg = require('../utilitários/trataImg.js');
+const trataImg = require('../trataImg.js');
 const assert = require('assert');
 
 describe('Test trataImg.js', () => {
