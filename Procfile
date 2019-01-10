@@ -1,1 +1,1 @@
-worker: node bot/tibro.js
+worker: node tibro.js
