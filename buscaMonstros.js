@@ -7,13 +7,9 @@ const urlThor = 'https://playragnarokonlinebr.com/database/thor/monstros?page=1&
   urlDetalhesValhalla = 'https://playragnarokonlinebr.com/database/valhalla/';
 
 async function buscaLinks(nome , servidor) { // Servidor: 0 = Thor, 1 = Valhalla
-  let url = urlThor;
-  let urlDetalhes =  urlDetalhesThor;
+  let url = servidor == 1 ? urlValhalla : urlThor;
+  let urlDetalhes =  servidor == 1 ? urlDetalhesValhalla : urlDetalhesThor;
   let links = [];
-  if (servidor == 1) {
-    url = urlValhalla;
-    urlDetalhes = urlDetalhesValhalla;
-  }
   await rp(url + nome, function(err, res, body) {
     if (err) console.log("Error:" + err);
     let $ = cheerio.load(body);
@@ -155,9 +151,7 @@ function buscaDropsDoMonstro(body) {
 
 function formataMsgBusca(arrayMonstro) {
   let monstroStringPesquisa = "";
-  arrayMonstro.forEach(element => {
-      monstroStringPesquisa += element + "%20";
-  });
+  arrayMonstro.map(element => monstroStringPesquisa += element + "%20");
   return monstroStringPesquisa.slice(0, monstroStringPesquisa.length - 3);
 }
 
