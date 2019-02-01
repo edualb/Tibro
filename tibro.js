@@ -15,7 +15,7 @@ bot.on("message", async message => {
     let args = messageArray.slice(1);
     if(cmd === `!mobt`) msgEmbededServidor(message, 0, args);
     else if(cmd === `!mobv`) msgEmbededServidor(message, 1, args);
-    else if(cmd === `!lib`) msgLibEmbed(message);
+    else if(cmd === `!help` || cmd === `!h`) msgLibEmbed(message);
 });
 
 bot.login(process.env.TOKEN);
