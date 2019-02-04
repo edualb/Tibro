@@ -11,8 +11,8 @@ async function buscaLinks(nome , servidor) { // Servidor: 0 = Thor, 1 = Valhalla
   let urlDetalhes =  urlDetalhesThor;
   let links = [];
   if (servidor == 1) {
-    url = urlValhalla;
-    urlDetalhes = urlDetalhesValhalla;
+    urlDetalhes = urlDetalhesValhalla
+    url = urlValhalla
   }
   await rp(url + nome, function(err, res, body) {
     if (err) console.log("Error:" + err);
@@ -155,9 +155,7 @@ function buscaDropsDoMonstro(body) {
 
 function formataMsgBusca(arrayMonstro) {
   let monstroStringPesquisa = "";
-  arrayMonstro.forEach(element => {
-      monstroStringPesquisa += element + "%20";
-  });
+  arrayMonstro.map(element => monstroStringPesquisa += element + "%20");
   return monstroStringPesquisa.slice(0, monstroStringPesquisa.length - 3);
 }
 

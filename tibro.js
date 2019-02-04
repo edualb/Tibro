@@ -13,18 +13,15 @@ bot.on("message", async message => {
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
     let args = messageArray.slice(1);
-    if(cmd === `!mobt`) {
-        msgEmbededServidor(message, 0, args);
-    } else if(cmd === `!mobv`) {
-        msgEmbededServidor(message, 1, args);
-    }
+    if(cmd === `!mobt`) msgEmbededServidor(message, 0, args);
+    else if(cmd === `!mobv`) msgEmbededServidor(message, 1, args);
+    else if(cmd === `!help` || cmd === `!h`) msgLibEmbed(message);
 });
 
 bot.login(process.env.TOKEN);
 
 function msgEmbededServidor(message, servidor, nomeMonstro) {
-    let colorEmbeded = 0xFFA200;
-    if (servidor == 1) colorEmbeded = 0x00BECA;
+    colorEmbeded = servidor === 1 ? 0xFFA200 : 0x00BECA;
     buscaMstr.buscaLinks(buscaMstr.formataMsgBusca(nomeMonstro), servidor).then(async function(links) {
         for (const link of links) {
           await buscaMstr.buscaDetalhesMstr(link.url)
@@ -70,4 +67,22 @@ function msgEmbededServidor(message, servidor, nomeMonstro) {
         }
       }, err => console.log("Error:" + err)
     ).catch(e => console.log("Error:" + e));
+}
+
+function msgLibEmbed(message) {
+    const embed = new discord.RichEmbed()
+        .setTitle('Biblioteca de comandos:')
+        .setColor(0x0000FF);
+    embed.fields = 
+    [
+        {
+            name: "*!mobt #NomeDoMonstro*",
+            value: `► Pesquisa os detalhes do monstro #NomeDoMonstro no servidor Thor.`
+        },
+        {
+            name: "*!mobv #NomeDoMonstro*",
+            value: `► Pesquisa os detalhes do monstro #NomeDoMonstro no servidor Valhalla.`
+        }
+    ]
+    return message.channel.send(embed);
 }
