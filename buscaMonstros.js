@@ -7,9 +7,13 @@ const urlThor = 'https://playragnarokonlinebr.com/database/thor/monstros?page=1&
   urlDetalhesValhalla = 'https://playragnarokonlinebr.com/database/valhalla/';
 
 async function buscaLinks(nome , servidor) { // Servidor: 0 = Thor, 1 = Valhalla
-  let url = servidor == 1 ? urlValhalla : urlThor;
-  let urlDetalhes =  servidor == 1 ? urlDetalhesValhalla : urlDetalhesThor;
+  let url = urlThor;
+  let urlDetalhes =  urlDetalhesThor;
   let links = [];
+  if (servidor == 1) {
+    urlDetalhes = urlDetalhesValhalla
+    url = urlValhalla
+  }
   await rp(url + nome, function(err, res, body) {
     if (err) console.log("Error:" + err);
     let $ = cheerio.load(body);
