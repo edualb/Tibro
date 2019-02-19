@@ -1,6 +1,7 @@
 const discord = require("discord.js");
 const buscaMstr = require('./buscaMonstros.js');
 const trataImg = require('./trataImg.js');
+const configDiscord = require('./config.json');
 
 const bot = new discord.Client({disableEveryone: true});
 
@@ -12,17 +13,22 @@ bot.on("ready", async () => {
 bot.on("message", async message => {
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
-    let args = messageArray.slice(1);
-    if(cmd === `!mobt`) msgEmbededServidor(message, 0, args);
-    else if(cmd === `!mobv`) msgEmbededServidor(message, 1, args);
+    let nomeMonstro = messageArray.slice(1);
+    let lvlMonstro = ""
+    if (messageArray.length >= 3) {
+       lvlMonstro = messageArray.slice(2);
+    }
+    if(cmd === `!mobt`) msgEmbededServidor(message, 0, nomeMonstro, lvlMonstro);
+    else if(cmd === `!mobv`) msgEmbededServidor(message, 1, nomeMonstro, lvlMonstro);
     else if(cmd === `!help` || cmd === `!h`) msgLibEmbed(message);
 });
 
 bot.login(process.env.TOKEN);
 
-function msgEmbededServidor(message, servidor, nomeMonstro) {
+function msgEmbededServidor(message, servidor, nomeMonstro, lvlMonstro) {
     colorEmbeded = servidor === 1 ? 0xFFA200 : 0x00BECA;
-    buscaMstr.buscaLinks(buscaMstr.formataMsgBusca(nomeMonstro), servidor).then(async function(links) {
+    let lvl = String(lvlMonstro).match(/\d+/g) ? lvlMonstro : "1";
+    buscaMstr.buscaLinks(buscaMstr.formataMsgBusca(nomeMonstro, lvl), servidor).then(async function(links) {
         for (const link of links) {
           await buscaMstr.buscaDetalhesMstr(link.url)
           .then(async function(monstro) {
