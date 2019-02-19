@@ -55,5 +55,5 @@ $ npm test
 
 * Execute the bot:
 ```shell
-$ node bot/tibro.js
+$ node .\tibro.js
 ```
