@@ -153,10 +153,21 @@ function buscaDropsDoMonstro(body) {
   return drops;
 }
 
-function formataMsgBusca(arrayMonstro) {
+function formataMsgBusca(arrayMonstro, lvl) {
   let monstroStringPesquisa = "";
-  arrayMonstro.map(element => monstroStringPesquisa += element + "%20");
-  return monstroStringPesquisa.slice(0, monstroStringPesquisa.length - 3);
+  arrayMonstro.map(element => monstroStringPesquisa += element + lvlMonstro(lvl) +"%20");
+  return monstroStringPesquisa.slice(0, monstroStringPesquisa.length - 30 - lvl.length * 2);
 }
 
-module.exports = { buscaAtribsBuildMstr, buscaAtrCaracMstr, buscaResEFraqMstr, buscaLinks, buscaDetalhesMstr, formataMsgBusca };
+function lvlMonstro(lvl) {
+  return '&minlevel=' + lvl + '&maxlevel=200';
+}
+
+module.exports = { 
+  buscaAtribsBuildMstr,
+  buscaAtrCaracMstr,
+  buscaResEFraqMstr,
+  buscaLinks,
+  buscaDetalhesMstr,
+  formataMsgBusca,
+  lvlMonstro };
