@@ -1,7 +1,6 @@
 const discord = require("discord.js");
 const buscaMstr = require('./buscaMonstros.js');
 const trataImg = require('./trataImg.js');
-const configDiscord = require('./config.json');
 
 const bot = new discord.Client({disableEveryone: true});
 
@@ -13,10 +12,13 @@ bot.on("ready", async () => {
 bot.on("message", async message => {
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
-    let nomeMonstro = messageArray.slice(1);
+    let nomeMonstro = "";
     let lvlMonstro = ""
     if (messageArray.length >= 3) {
-       lvlMonstro = messageArray.slice(2);
+        nomeMonstro = messageArray.slice(1, 2)
+        lvlMonstro = messageArray.slice(2);
+    } else {
+        nomeMonstro = messageArray.slice(1);
     }
     if(cmd === `!mobt`) msgEmbededServidor(message, 0, nomeMonstro, lvlMonstro);
     else if(cmd === `!mobv`) msgEmbededServidor(message, 1, nomeMonstro, lvlMonstro);

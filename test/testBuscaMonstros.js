@@ -98,3 +98,13 @@ describe('test links', async () => {
         });
     });
 });
+describe('test functions', async () => {
+    describe('test of formataMsgBusca', () => {
+        it('return formataMsgBusca with name abelha and lvl 55', () => {
+            assert(ops.formataMsgBusca(['abelha'], '55') === 'abelha&minlevel=55&maxlevel=200%20');
+        });
+        it('return formataMsgBusca with name cavaleiro and lvl 142', () => {
+            assert(ops.formataMsgBusca(['cavaleiro'], '142') === 'cavaleiro&minlevel=142&maxlevel=200%20');
+        });
+    });
+});

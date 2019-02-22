@@ -156,7 +156,7 @@ function buscaDropsDoMonstro(body) {
 function formataMsgBusca(arrayMonstro, lvl) {
   let monstroStringPesquisa = "";
   arrayMonstro.map(element => monstroStringPesquisa += element + lvlMonstro(lvl) +"%20");
-  return monstroStringPesquisa.slice(0, monstroStringPesquisa.length - 30 - lvl.length * 2);
+  return monstroStringPesquisa.slice(0, monstroStringPesquisa.length);
 }
 
 function lvlMonstro(lvl) {
