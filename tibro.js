@@ -84,12 +84,12 @@ function msgLibEmbed(message) {
     embed.fields = 
     [
         {
-            name: "*!mobt #NomeDoMonstro*",
-            value: `► Pesquisa os detalhes do monstro #NomeDoMonstro no servidor Thor.`
+            name: "*!mobt #NomeDoMonstro #level*",
+            value: `► Pesquisa os detalhes do monstro #NomeDoMonstro no servidor Thor. O level é opcional`
         },
         {
-            name: "*!mobv #NomeDoMonstro*",
-            value: `► Pesquisa os detalhes do monstro #NomeDoMonstro no servidor Valhalla.`
+            name: "*!mobv #NomeDoMonstro #level*",
+            value: `► Pesquisa os detalhes do monstro #NomeDoMonstro no servidor Valhalla. O level é opcional.`
         }
     ]
     return message.channel.send(embed);
