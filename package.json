@@ -1,6 +1,6 @@
 {
   "name": "tibro",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Bot that helps Ragnarok players to find infos about monsters",
   "engines": {
     "node": "8.x"

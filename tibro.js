@@ -12,17 +12,25 @@ bot.on("ready", async () => {
 bot.on("message", async message => {
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
-    let args = messageArray.slice(1);
-    if(cmd === `!mobt`) msgEmbededServidor(message, 0, args);
-    else if(cmd === `!mobv`) msgEmbededServidor(message, 1, args);
+    let nomeMonstro = "";
+    let lvlMonstro = ""
+    if (messageArray.length >= 3) {
+        nomeMonstro = messageArray.slice(1, 2)
+        lvlMonstro = messageArray.slice(2);
+    } else {
+        nomeMonstro = messageArray.slice(1);
+    }
+    if(cmd === `!mobt`) msgEmbededServidor(message, 0, nomeMonstro, lvlMonstro);
+    else if(cmd === `!mobv`) msgEmbededServidor(message, 1, nomeMonstro, lvlMonstro);
     else if(cmd === `!help` || cmd === `!h`) msgLibEmbed(message);
 });
 
 bot.login(process.env.TOKEN);
 
-function msgEmbededServidor(message, servidor, nomeMonstro) {
+function msgEmbededServidor(message, servidor, nomeMonstro, lvlMonstro) {
     colorEmbeded = servidor === 1 ? 0xFFA200 : 0x00BECA;
-    buscaMstr.buscaLinks(buscaMstr.formataMsgBusca(nomeMonstro), servidor).then(async function(links) {
+    let lvl = String(lvlMonstro).match(/\d+/g) ? lvlMonstro : "1";
+    buscaMstr.buscaLinks(buscaMstr.formataMsgBusca(nomeMonstro, lvl), servidor).then(async function(links) {
         for (const link of links) {
           await buscaMstr.buscaDetalhesMstr(link.url)
           .then(async function(monstro) {
@@ -76,12 +84,12 @@ function msgLibEmbed(message) {
     embed.fields = 
     [
         {
-            name: "*!mobt #NomeDoMonstro*",
-            value: `► Pesquisa os detalhes do monstro #NomeDoMonstro no servidor Thor.`
+            name: "*!mobt #NomeDoMonstro #level*",
+            value: `► Pesquisa os detalhes do monstro #NomeDoMonstro no servidor Thor. O level é opcional`
         },
         {
-            name: "*!mobv #NomeDoMonstro*",
-            value: `► Pesquisa os detalhes do monstro #NomeDoMonstro no servidor Valhalla.`
+            name: "*!mobv #NomeDoMonstro #level*",
+            value: `► Pesquisa os detalhes do monstro #NomeDoMonstro no servidor Valhalla. O level é opcional.`
         }
     ]
     return message.channel.send(embed);
